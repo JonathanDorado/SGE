@@ -11,7 +11,7 @@ class Users extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('profiles_model', 'pm');
         $this->load->model('users_model', 'um');
-        
+
         if (!$this->session->userdata('user_type')) {
             redirect('/login', 'refresh');
         } else {
@@ -21,7 +21,6 @@ class Users extends CI_Controller {
                 redirect('/mycourses', 'refresh');
             }
         }
-
     }
 
     public function index() {
@@ -159,39 +158,43 @@ class Users extends CI_Controller {
         }
         return $key;
     }
+
 //
-//    function sendMail() {
-//        $to = 'jdingenieria@outlook.com';
-//        $subject = 'the subject';
-//        $message = 'hello';
-//        $headers = 'From: webmaster@example.com' . "\r\n" .
-//                'Reply-To: webmaster@example.com' . "\r\n" .
-//                'X-Mailer: PHP/' . phpversion();
-//
-//        mail($to, $subject, $message, $headers);
-////        $config = Array(
-////            'protocol' => 'smtp',
-////            'smtp_host' => 'ssl://smtp.gmail.com',
-////            'smtp_port' => 465,
-////            'smtp_user' => 'jonathan910730@gmail.com', // change it to yours
-////            'smtp_pass' => 'PraSiCrm01', // change it to yours
-////            'mailtype' => 'html',
-////            'charset' => 'iso-8859-1',
-////            'wordwrap' => TRUE
-////        );
-////
-////        $message = '';
-////        $this->load->library('email', $config);
-////        $this->email->set_newline("\r\n");
-////        $this->email->from('eventosccs@gmail.com'); // change it to yours
-////        $this->email->to('jdingenieria@outlook.com'); // change it to yours
-////        $this->email->subject('Resume from JobsBuddy for your Job posting');
-////        $this->email->message($message);
-////        if ($this->email->send()) {
-////            echo 'Email sent.';
-////        } else {
-////            show_error($this->email->print_debugger());
-////        }
-//    }
+    function sendMail() {
+        $this->load->library("php_mailer");
+        $mail = $this->php_mailer->load();
+        try {
+            //Server settings
+            $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+            $mail->isSMTP();                                      // Set mailer to use SMTP
+            $mail->Host = 'smtp.yandex.com';  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'USERNAME';                 // SMTP username
+            $mail->Password = 'PASSWORD';                           // SMTP password
+            $mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
+            $mail->Port = 465;                                    // TCP port to connect to
+            //Recipients
+            $mail->setFrom('USEREMAIL', 'Ganesha from Retainly');
+            $mail->addAddress('andrea.amaya@ccs.org.co', 'Danny');     // Add a recipient
+            $mail->addAddress('jdingenieria@outlook.com');               // Name is optional
+//            $mail->addReplyTo('RECEIPIENTEMAIL03', 'Ganesha');
+            //$mail->addCC('cc@example.com');
+            //$mail->addBCC('bcc@example.com');
+            //Attachments
+            //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
+            //Content
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Here is the subject';
+            $mail->Body = 'This is the HTML message body <b>in bold!</b>';
+            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+            $mail->send();
+            echo 'Message has been sent';
+        } catch (Exception $e) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }
+    }
 
 }

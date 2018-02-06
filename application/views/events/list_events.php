@@ -43,7 +43,7 @@
                             <th class="text-center">Fecha Inicio</th>
                             <th class="text-center">Fecha Finalización</th>
                             <th class="text-center">Estado</th>
-                            <th class="text-center"></th>
+                            <th class="text-center" style="width: 15%"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,7 +74,7 @@
                                             if ($show_manage) {
                                                 ?>
                                                 <div class="btn-group">
-                                                    <a href='#' data-toggle="dropdown" class='btn btn-danger dropdown-toggle btn-xs'> Gestionar <span class="caret"></span></a>
+                                                    <a href='#' data-toggle="dropdown" class='btn btn-danger dropdown-toggle btn-xs'> <i  class='fa fa-cogs'></i></a>
                                                     <ul role="menu" class="dropdown-menu">
                                                         <?php
                                                         $permissions_assign_topics = array(ASSIGN_TOPICS);
@@ -95,11 +95,11 @@
                                                             <li><a href = "#" onclick = "manage_Clients(<?php echo $event->event_id; ?>)">Clientes</a></li>
                                                             <?php
                                                         }
-                                                        $permissions_assign_score = array(SCORE_CLIENTS_EVENTS);
-                                                        if (array_intersect($permissions_assign_score, $this->session->userdata('permissions'))) {
+//                                                        $permissions_assign_score = array(SCORE_CLIENTS_EVENTS);
+//                                                        if (array_intersect($permissions_assign_score, $this->session->userdata('permissions'))) {
                                                             ?>
-                                                            <li><a href = "#" onclick = "list_Score(<?php echo $event->event_id; ?>)">Calificaciones</a></li>
-                                                        <?php } ?>    
+                                                            <!--<li><a href = "#" onclick = "list_Score(<?php echo $event->event_id; ?>)">Calificaciones</a></li>-->
+                                                        <?php // } ?>    
                                                     </ul>
                                                 </div>
                                                 <?php
@@ -110,7 +110,7 @@
                                     if (array_intersect($permissions_view_detail, $this->session->userdata('permissions'))) {
                                         ?>
                                         <div class="btn-group">
-                                            <a href='#' onclick='show_Event(<?php echo $event->event_id; ?>)' class='btn btn-success dropdown-toggle btn-xs'><i  class='fa fa-search'></i> Ver </a>
+                                            <a href='#' onclick='show_Event(<?php echo $event->event_id; ?>)' class='btn btn-success dropdown-toggle btn-xs'><i  class='fa fa-search'></i></a>
                                         </div>
                                         <?php
                                     }
@@ -130,7 +130,7 @@
                                             if ($show_edit) {
                                                 ?>
                                                 <div class="btn-group">
-                                                    <a href='#' onclick='edit_Event(<?php echo $event->event_id; ?>)' class='btn btn-info dropdown-toggle btn-xs'><i  class='fa fa-pencil'></i> Editar </a>
+                                                    <a href='#' onclick='edit_Event(<?php echo $event->event_id; ?>)' class='btn btn-info dropdown-toggle btn-xs'><i  class='fa fa-pencil'></i></a>
                                                 </div>
                                                 <?php
                                             }

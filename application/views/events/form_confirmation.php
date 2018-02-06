@@ -346,14 +346,14 @@
                         ?>
                         <input type="hidden" value="<?php echo (isset($event_client_payment)) ? $event_client_payment[0]->paid_date : date('Y-m-d') ?>" name="paid_date" id="paid_date">
 
-                        <div class="item form-group">
+<!--                        <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="invoice_code">Codigo de Factura <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input type="hidden" value="<?php echo $invoice_code ?>" name="invoice_code" id="invoice_code">
                                 <img src="<?php echo $invoice_qr; ?>" alt="" class="img-responsive" height="200" width="200">
                             </div>
-                        </div>
+                        </div>-->
 
                         <div class="item form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="comment">Observaciones 

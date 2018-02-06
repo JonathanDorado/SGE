@@ -3,10 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 // Incluimos el archivo fpdf
-require_once APPPATH . "/third_party/fpdf/fpdf.php";
+//require_once APPPATH . "/third_party/fpdf/fpdf.php";
+require_once APPPATH . "/third_party/fpdf/FpdfBarcode.php";
 
 //Extendemos la clase Pdf de la clase fpdf para que herede todas sus variables y funciones
-class Pdf extends FPDF {
+class Pdf extends FpdfBarcode {
 
     public function __construct() {
         parent::__construct();
@@ -37,7 +38,8 @@ class Pdf extends FPDF {
 //        $this->SetFont('Arial', '', 30);
 //        $this->MultiCell(0, 20, $event[0]->name, 0, 'C');
         $this->SetXY(90, 180);
-        $this->MultiCell(0, 20, $this->Image('uploads/qr.png', $this->GetX() - 20 + 1, $this->GetY() - 10 + 1, 80, 80), 0, 'C');
+//        $this->code128(15, 15, 'HORIZONTAL CODE', 85, 10, false);
+        $this->MultiCell(0, 20, $this->Image('uploads/qr_codes/' . $event[0]->event_id . "_" . $client[0]->document_number . ".png", $this->GetX() - 20 + 1, $this->GetY() - 10 + 1, 80, 80), 0, 'C');
     }
 
     public function getCertificate($event, $client, $event_client_payment) {
@@ -56,8 +58,8 @@ class Pdf extends FPDF {
         $this->SetFont('Arial', '', 14);
         $this->MultiCell(0, 8, 'Intensidad Horaria: ' . $event[0]->total_hours . ' Horas', 0, 'C');
     }
-    
-     public function getCertificateCurse($event, $client, $event_client_payment, $topic) {
+
+    public function getCertificateCurse($event, $client, $event_client_payment, $topic) {
         $this->Ln(50);
         $this->SetFont('Arial', 'B', 30);
 //        $this->MultiCell(0, 10, 'SIMON JOSE ANTONIO DE LA SANTISIMA TRINIDAD BOLIVAR', 0, 'C');

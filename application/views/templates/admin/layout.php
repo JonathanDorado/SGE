@@ -61,9 +61,6 @@
     </head>
 
     <body class="nav-md" style='padding: 0px 0px 0px 0px !important;'>
-        <div class="alert alert-info" role="alert">
-                <strong>Versión de Testeo</strong>
-        </div>
         <div class="container body">
 
             <div class="main_container">
@@ -104,6 +101,7 @@
         <!-- jQuery -->
         <script src="<?php echo base_url() ?>resources/templateAdminGentella/vendors/jquery/dist/jquery.min.js"></script>
         <script src="<?php echo base_url() ?>resources/templateAdminGentella/vendors/jquery/dist/jquery.redirect.js"></script>
+        <script src="<?php echo base_url() ?>resources/templateAdminGentella/vendors/jquery/dist/jquery.inputmask.min.js"></script>
         <!-- Bootstrap -->
         <script src="<?php echo base_url() ?>resources/templateAdminGentella/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
         <!-- FastClick -->

@@ -152,7 +152,7 @@ if (isset($only_read)) {//If it is only read
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class='input-group date'  >
-                                    <input <?php echo $disabled; ?> readonly type='text' name="date_birthday" value="<?php echo (isset($provider)) ? $provider[0]->date_birthday : date("Y-m-d"); ?>" id="date_birthday" class="form-control datepicker col-md-7 col-xs-12 required-provider" />
+                                    <input <?php echo $disabled; ?> type='text' placeholder="AAAA-MM-DD" name="date_birthday" value="<?php echo (isset($provider)) ? $provider[0]->date_birthday : ''; ?>" id="date_birthday" class="form-control date_mask col-md-7 col-xs-12 required-provider" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -161,11 +161,11 @@ if (isset($only_read)) {//If it is only read
                         </div>
 
                         <div class="item form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="date_start_ccs">Fecha de Ingreso CCS <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"  for="date_start_ccs">Fecha de Ingreso CCS <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class='input-group date'  >
-                                    <input <?php echo $disabled; ?> readonly type='text' name="date_start_ccs" value="<?php echo (isset($provider)) ? $provider[0]->date_start_ccs : date("Y-m-d"); ?>" id="date_start_ccs" class="form-control datepicker col-md-7 col-xs-12 required-provider" />
+                                    <input <?php echo $disabled; ?> type='text' placeholder="AAAA-MM-DD" name="date_start_ccs" value="<?php echo (isset($provider)) ? $provider[0]->date_start_ccs : ''; ?>" id="date_start_ccs" class="form-control date_mask col-md-7 col-xs-12 required-provider" />
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>

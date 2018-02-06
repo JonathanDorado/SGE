@@ -413,6 +413,8 @@ class Event extends CI_Controller {
             $data['content'] = "events/form_event";
             $this->load->view('templates/admin/layout', $data);
         } else {
+//            $this->session->set_flashdata('lolwut',$data);
+//            redirect('/event');
             $this->load->view('templates/error');
         }
     }
@@ -644,6 +646,7 @@ class Event extends CI_Controller {
             $data['content'] = "events/manage_event";
             $this->load->view('templates/admin/layout', $data);
         } else {
+//            redirect($_SERVER['HTTP_REFERER']);
             $this->load->view('templates/error');
         }
     }
@@ -866,19 +869,19 @@ class Event extends CI_Controller {
             $event_client_payment = $this->ecpm->getEventClientPayment($event_client_id);
             if (count($event_client_payment) > 0) {
                 $data['event_client_payment'] = $event_client_payment;
-                if ($event_client_payment[0]->isPaid == 1) {
-                    $data_to_hash = $event_client_payment[0]->invoice_code;
-                    $data['invoice_qr'] = $this->invoiceQRGenerator($this->strToHex($data_to_hash));
-                    $data['invoice_code'] = $this->strToHex($data_to_hash);
-                } else {
-                    $data_to_hash = $event_id . $client_id . date('Y-m-d');
-                    $data['invoice_qr'] = $this->invoiceQRGenerator($this->strToHex($data_to_hash));
-                    $data['invoice_code'] = $this->strToHex($data_to_hash);
-                }
+//                if ($event_client_payment[0]->isPaid == 1) {
+//                    $data_to_hash = $event_client_payment[0]->invoice_code;
+//                    $data['invoice_qr'] = $this->invoiceQRGenerator($this->strToHex($data_to_hash));
+//                    $data['invoice_code'] = $this->strToHex($data_to_hash);
+//                } else {
+//                    $data_to_hash = $event_id . $client_id . date('Y-m-d');
+//                    $data['invoice_qr'] = $this->invoiceQRGenerator($this->strToHex($data_to_hash));
+//                    $data['invoice_code'] = $this->strToHex($data_to_hash);
+//                }
             } else {
-                $data_to_hash = $event_id . $client_id . date('Y-m-d');
-                $data['invoice_qr'] = $this->invoiceQRGenerator($this->strToHex($data_to_hash));
-                $data['invoice_code'] = $this->strToHex($data_to_hash);
+//                $data_to_hash = $event_id . $client_id . date('Y-m-d');
+//                $data['invoice_qr'] = $this->invoiceQRGenerator($this->strToHex($data_to_hash));
+//                $data['invoice_code'] = $this->strToHex($data_to_hash);
             }
 
             $data['content'] = "events/form_confirmation";
@@ -906,10 +909,10 @@ class Event extends CI_Controller {
         if ($this->form_validation->run() != false) {
 
             if ($this->input->post('isPaid') == 1) {
-                $invoice_code = $this->input->post('invoice_code');
+//                $invoice_code = $this->input->post('invoice_code');
                 $paid_date = $this->input->post('paid_date');
             } else {
-                $invoice_code = "";
+//                $invoice_code = "";
                 $paid_date = "";
             }
 
@@ -923,7 +926,7 @@ class Event extends CI_Controller {
                 'comment' => $this->input->post('comment'),
                 'isPaid' => $this->input->post('isPaid'),
                 'paid_date' => $paid_date,
-                'invoice_code' => $invoice_code,
+//                'invoice_code' => $invoice_code,
                 'created_by_user_id' => $this->session->userdata('user_id'),
                 'offline_mode_create' => $this->mode
             );
@@ -980,7 +983,8 @@ class Event extends CI_Controller {
         if ($this->form_validation->run() != false) {
 
             if ($this->input->post('isPaid') == 1) {
-                $invoice_code = $this->input->post('invoice_code');
+                $invoice_code = "";
+//                $invoice_code = $this->input->post('invoice_code');
                 if ($this->input->post('paid_date') == '0000-00-00') {
                     $paid_date = date('Y-m-d');
                 } else {
@@ -1001,7 +1005,7 @@ class Event extends CI_Controller {
                 'comment' => $this->input->post('comment'),
                 'isPaid' => $this->input->post('isPaid'),
                 'paid_date' => $paid_date,
-                'invoice_code' => $invoice_code,
+//                'invoice_code' => $invoice_code,
                 'updated_by_user_id' => $this->session->userdata('user_id'),
                 'offline_mode_update' => $this->mode
             );
@@ -1081,8 +1085,9 @@ class Event extends CI_Controller {
         $params['data'] = $client[0]->document_number;
         $params['level'] = 'H';
         $params['size'] = 10;
-        $params['savename'] = 'uploads/qr.png';
+        $params['savename'] = 'uploads/qr_codes/' . $event[0]->event_id . "_" . $client[0]->document_number . ".png";
         $this->ciqrcode->generate($params);
+
         $this->pdf->getEscarapela($event, $client);
 
         $this->pdf->Output("escarapela.pdf", 'I');
@@ -1136,33 +1141,33 @@ class Event extends CI_Controller {
         }
     }
 
-    function strToHex($string) {
-        $hex = '';
-        for ($i = 0; $i < strlen($string); $i++) {
-            $hex .= dechex(ord($string[$i]));
-        }
+//    function strToHex($string) {
+//        $hex = '';
+//        for ($i = 0; $i < strlen($string); $i++) {
+//            $hex .= dechex(ord($string[$i]));
+//        }
+//
+//        return $hex;
+//    }
+//
+//    function hexToStr($hex) {
+//
+//        $string = '';
+//        for ($i = 0; $i < strlen($hex) - 1; $i += 2) {
+//            $string .= chr(hexdec($hex[$i] . $hex[$i + 1]));
+//        }
+//
+//        return $string;
+//    }
 
-        return $hex;
-    }
-
-    function hexToStr($hex) {
-
-        $string = '';
-        for ($i = 0; $i < strlen($hex) - 1; $i += 2) {
-            $string .= chr(hexdec($hex[$i] . $hex[$i + 1]));
-        }
-
-        return $string;
-    }
-
-    public function invoiceQRGenerator($string) {
-        $params['data'] = $string;
-        $params['level'] = 'H';
-        $params['size'] = 10;
-        $params['savename'] = FCPATH . 'invoice-code-' . $string . '.png';
-        $this->ciqrcode->generate($params);
-        return base_url() . "invoice-code-" . $string . ".png";
-    }
+//    public function invoiceQRGenerator($string) {
+//        $params['data'] = $string;
+//        $params['level'] = 'H';
+//        $params['size'] = 10;
+//        $params['savename'] = FCPATH . 'invoice-code-' . $string . '.png';
+//        $this->ciqrcode->generate($params);
+//        return base_url() . "invoice-code-" . $string . ".png";
+//    }
 
     function translateMonth($month) {
         switch ($month) {

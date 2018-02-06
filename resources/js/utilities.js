@@ -4,6 +4,9 @@ $(document).ready(function () {
     $(".alert-success").fadeTo(8000, 500).slideUp(1000, function () {
         //$("#success-alert").slideUp(500);
     });
+    
+      $(".date_mask").mask("9999-99-99");
+   
 
     $('.datepicker').daterangepicker({
         locale: {
